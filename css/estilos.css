@@ -51,6 +51,10 @@ footer {
     color: var(--text-color);
     text-align: center;
     padding: 20px 0;
+    position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .footer-content {
@@ -112,7 +116,81 @@ footer {
     margin: 0;
     color: var(--text-color);
 }
+.form-container {
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+.form-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.form-container input[type="radio"] {
+    margin-right: 10px;
+}
+.form-container .radio-group {
+    margin-bottom: 20px;
+}
+.form-container .radio-group label {
+    margin-right: 20px;
+    font-weight: normal;
+    color: #333;
+}
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.form-container button:hover {
+    background-color: #218838;
+}
+.back-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+    max-width: 200px;
+}
 
+.back-button:hover {
+    background: var(--hover-color);
+}
+ .soloeste {
+    display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
 @media (max-width: 768px) { 
     .container {
       grid-template-columns: 1fr;
@@ -121,3 +199,4 @@ footer {
         font-size: 1.3rem;
     }
   }
+
