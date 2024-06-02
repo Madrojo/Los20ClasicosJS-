@@ -18,12 +18,13 @@
 
     <main class="match-container soloeste">
         <div class="row justify-content-center w-100"><div class="form-container">
-        <form method="post" >
+        <form id="contactform" method="post" >
+
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
 
             <label for="Apellido">Apellido:</label>
-            <input type="text" id="Apellido" name="Apellido" required>
+            <input type="text" id="apellido" name="apellido" required>
 
             <select id="genero" name="genero" required="">
                 <option value="" disabled="" selected="">Selecciona tu género</option>
@@ -31,6 +32,7 @@
                 <option value="femenino">Femenino</option>
                 <option value="otro">Otro</option>
             </select>
+
             <div class="hincha">
             <label for="hinchade">Hincha de:</label>
             </div>
@@ -55,17 +57,18 @@
             <input type="email" id="email" name="email" required>
          
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="mensaje" class="form-label">Mensaje</label>
+                <textarea class="form-control" id="mensaje" rows="3" required></textarea>
               </div>>
 
              <button type="submit">Registrarse</button>
         </form>
     </div>
 </div>
+
 <a href="index.html" class="back-button">Volver al Index</a>
     </main>
-    <footer>
+<footer>
         <div class="footer-content">
             <p>Creado por Grupo 8</p>
             <p>Actualizado al día 30/05/2024</p>
@@ -76,6 +79,65 @@
                 </a>
             </p>
         </div>
-    </footer>
+</footer>
+
+<script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var nombre = document.getElementById('nombre').value;
+            var apellido = document.getElementById('apellido').value;
+            var genero = document.getElementById('genero').value;
+            var hinchade = document.querySelector('input[name="hinchade"]:checked');
+            var email = document.getElementById('email').value;
+            var mensaje = document.getElementById('mensaje').value;
+
+            if (!nombre) {
+                alert('Por favor, ingrese su nombre.');
+                return;
+            }
+
+            if (!apellido) {
+                alert('Por favor, ingrese su apellido.');
+                return;
+            }
+
+            if (!genero) {
+                alert('Por favor, seleccione su género.');
+                return;
+            }
+
+            if (!hinchade) {
+                alert('Por favor, seleccione un equipo del cual es hincha.');
+                return;
+            }
+
+            if (!email) {
+                alert('Por favor, ingrese su correo electrónico.');
+                return;
+            }
+
+            if (!mensaje) {
+                alert('Por favor, ingrese su mensaje.');
+                return;
+            }
+
+            var usuario = {
+                nombre: nombre,
+                apellido: apellido,
+                genero: genero,
+                hinchade: hinchade.value,
+                email: email,
+                mensaje: mensaje
+            };
+            
+            var usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            usuarios.push(usuario);
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            alert('Usuario registrado con éxito!');
+            document.getElementById('contactForm').reset();
+            
+        });
+</script> 
 </body>
 </html>
