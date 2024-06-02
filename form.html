@@ -53,6 +53,7 @@
                 type="radio"
                 name="hinchade"
                 value="independiente"
+                checked
               />Independiente
             </div>
             <div class="hincha">
@@ -109,7 +110,7 @@
 
     <script>
       document
-        .getElementById("contactForm")
+        .getElementById("contactform")
         .addEventListener("submit", function (event) {
           event.preventDefault();
 
@@ -165,7 +166,7 @@
           usuarios.push(usuario);
           localStorage.setItem("usuarios", JSON.stringify(usuarios));
           alert("Usuario registrado con éxito!");
-          document.getElementById("contactForm").reset();
+          document.getElementById("contactform").reset();
         });
     </script>
   </body>
