@@ -168,10 +168,12 @@ const teamsData = [
         "description": "Jugaron 136 veces. Velez ganó 52 veces. Ferro ganó 45 veces. Empataron 39 veces. Velez lleva una diferencia de 7 partidos."
       }
   ]
-  // Función para generar las tarjetas de los equipos
-function generateTeamCards() {
+
+function generateTeamCards(teams = teamsData) {
   const container = document.getElementById('teams-container');
-  teamsData.forEach(team => {
+  container.innerHTML = '';
+
+  teams.forEach(team => {
       const teamCard = document.createElement('div');
       teamCard.className = 'team-card';
       
@@ -192,5 +194,12 @@ function generateTeamCards() {
   });
 }
 
-// Ejecuta la función al cargar la página
-window.onload = generateTeamCards;
+function filterTeams() {
+  const searchInput = document.getElementById('search-input').value.toLowerCase();
+  const filteredTeams = teamsData.filter(team => team.name.toLowerCase().includes(searchInput));
+  generateTeamCards(filteredTeams);
+}
+
+window.onload = function(){
+generateTeamCards();
+}
