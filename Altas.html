@@ -32,8 +32,16 @@
             action="https://formspree.io/f/xdoqrzgq"
             method="post"
           >
-            <label for="DNI">DNI:</label>
-            <input type="text" id="DNI" name="DNI" required />
+            <label for="dni">DNI:</label>
+            <input
+              type="text"
+              id="dni"
+              name="dni"
+              required
+              maxlength="8"
+              pattern="\d{8}"
+              title="Debe tener exactamente 8 dígitos"
+            />
 
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required />
@@ -44,40 +52,11 @@
             <label for="email">Correo Electrónico:</label>
             <input type="email" id="email" name="email" required />
 
-            <select id="genero" name="genero" required="">
-              <option value="" disabled="" selected="">
-                Selecciona tu género
-              </option>
-              <option value="masculino">Masculino</option>
-              <option value="femenino">Femenino</option>
-              <option value="otro">Otro</option>
-            </select>
+            <label for="genero">Tu género es:</label>
+            <input type="text" id="genero" name="genero" required />
 
-            <div class="hincha">
-              <label for="hinchade">Hincha de:</label>
-            </div>
-            <div class="hincha">
-              <label for="independiente">Independiente</label>
-              <input
-                id="independiente"
-                type="radio"
-                name="hinchade"
-                value="independiente"
-                checked
-              />Independiente
-            </div>
-            <div class="hincha">
-              <label for="river">River</label>
-              <input id="river" type="radio" name="hinchade" value="river" />
-            </div>
-            <div class="hincha">
-              <label for="boca">Boca</label>
-              <input id="boca" type="radio" name="hinchade" value="boca" />
-            </div>
-            <div class="hincha">
-              <label for="otro">Otro...</label>
-              <input id="otro" type="radio" name="hinchade" value="otro" />
-            </div>
+            <label for="hinchade">Hincha de:</label>
+            <input type="text" id="hinchade" name="hinchade" required />
 
             <div class="mb-3">
               <label for="mensaje" class="form-label">Mensaje</label>
@@ -122,7 +101,7 @@
         .addEventListener("submit", function (event) {
           event.preventDefault();
 
-          let DNI = document.getElementById("DNI").value;
+          let DNI = document.getElementById("dni").value;
           let nombre = document.getElementById("nombre").value;
           let apellido = document.getElementById("apellido").value;
           let genero = document.getElementById("genero").value;
@@ -132,7 +111,7 @@
           let email = document.getElementById("email").value;
           let mensaje = document.getElementById("mensaje").value;
 
-          if (!DNI) {
+          if (!dni) {
             alert("Por favor, ingrese su DNI.");
             return;
           }
@@ -168,7 +147,7 @@
           }
 
           let usuario = {
-            DNI: DNI,
+            dni: dni,
             nombre: nombre,
             apellido: apellido,
             genero: genero,
