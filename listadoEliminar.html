@@ -89,7 +89,7 @@
           // Captura y maneja errores, mostrando una alerta en caso de error al obtener los productos.
           .catch((error) => {
             console.log("Error:", error);
-            alert("Error al obtener los hinchas.");
+            alert("Error al obtener el hincha.");
           });
       }
 
@@ -101,7 +101,7 @@
             .then((response) => {
               if (response.ok) {
                 // Si es exitosa (response.ok), elimina el producto y da mensaje de ok.
-                obtenerhincha(); // Vuelve a obtener la lista de productos para actualizar la tabla.
+                obtenerHincha(); // Vuelve a obtener la lista de productos para actualizar la tabla.
                 alert("hincha eliminado correctamente.");
               }
             })
