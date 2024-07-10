@@ -177,7 +177,7 @@ margin-bottom: 15px;
 }
 
 .back-button:hover {
-    background: var(--hover-color);
+    background: #540303;
 }
  .soloeste {
     display: flex;
