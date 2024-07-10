@@ -180,7 +180,8 @@ def agregar_hincha():
     # nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}" #Genera un nuevo nombre para la imagen usando un timestamp, para evitar sobreescrituras y conflictos de nombres.
 
     nuevo_dni = usuarios.agregar_hincha(dni, nombre, apellido, email, genero, hinchade, mensaje)
-    if nuevo_dni:    
+    
+    if not nuevo_dni:    
         # imagen.save(os.path.join(RUTA_DESTINO, nombre_imagen))
 
         #Si el producto se agrega con éxito, se devuelve una respuesta JSON con un mensaje de éxito y un código de estado HTTP 201 (Creado).
@@ -236,7 +237,9 @@ def modificar_hincha(dni):
 
 
     # Se llama al método modificar_producto pasando el codigo del producto y los nuevos datos.
-    if usuarios.modificar_hincha(dni, nuevo_nombre, nuevo_apellido, nuevo_email, nuevo_genero, nuevo_hinchade, nuevo_mensaje):
+    hinchaModificado=usuarios.modificar_hincha(dni, nuevo_nombre, nuevo_apellido, nuevo_email, nuevo_genero, nuevo_hinchade, nuevo_mensaje)
+    print(hinchaModificado)
+    if hinchaModificado:
         
         #Si la actualización es exitosa, se devuelve una respuesta JSON con un mensaje de éxito y un código de estado HTTP 200 (OK).
         return jsonify({"mensaje": "Hincha modificado"}), 200

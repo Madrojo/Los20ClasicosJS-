@@ -224,30 +224,37 @@
         })
           .then((response) => {
             if (response.ok) {
+              alert("Hincha actualizado correctamente.");
               return response.json();
             } else {
               throw new Error("Error al guardar los cambios del hincha.");
             }
           })
-          .then((data) => {
-            alert("Hincha actualizado correctamente.");
-            limpiarFormulario();
-          })
           .catch((error) => {
             console.error("Error:", error);
             alert("Error al actualizar el hincha.");
+          })
+          .finally(function () {
+            document.getElementById("dni").value = "";
+            document.getElementById("nombre").value = "";
+            document.getElementById("apellido").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("genero").value = "";
+            document.getElementById("hinchade").value = "";
+            document.getElementById("mensaje").value = "";
+            limpiarFormulario();
           });
       }
 
       // Restablece todas las variables relacionadas con el formulario a sus valores iniciales, lo que efectivamente "limpia" el formulario.
       function limpiarFormulario() {
-        document.getElementById("dni").value = "";
-        document.getElementById("nombre").value = "";
-        document.getElementById("apellido").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("genero").value = "";
-        document.getElementById("hinchade").value = "";
-        document.getElementById("mensaje").value = "";
+        // document.getElementById("dni").value = "";
+        // document.getElementById("nombre").value = "";
+        // document.getElementById("apellido").value = "";
+        // document.getElementById("email").value = "";
+        // document.getElementById("genero").value = "";
+        // document.getElementById("hinchade").value = "";
+        // document.getElementById("mensaje").value = "";
 
         //const imagenActual = document.getElementById("imagen-actual");
         //imagenActual.style.display = "none";
