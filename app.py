@@ -26,12 +26,12 @@ CORS(app)  # Esto habilitará CORS para todas las rutas
 class Usuarios:
     #----------------------------------------------------------------
     # Constructor de la clase
-    def __init__(self, localhost, root, 1234, myapp):
+    def __init__(self, host, user, password, database):
         # Primero, establecemos una conexión sin especificar la base de datos
         self.conn = mysql.connector.connect(
-            host=localhost,
-            user=root,
-            password=1234
+            host=host,
+            user=user,
+            password=password
         )
         self.cursor = self.conn.cursor()
 
@@ -101,7 +101,7 @@ class Usuarios:
     #----------------------------------------------------------------
     def mostrar_hincha(self, dni):
         # Mostramos los datos de un hincha a partir de su dni
-        hincha = self.consultar_hincha(dni=)
+        hincha = self.consultar_hincha(dni)
         if hincha:
             print("-" * 40)
             print(f"dni.....: {hincha['dni']}")
@@ -120,7 +120,7 @@ class Usuarios:
 # Cuerpo del programa
 #--------------------------------------------------------------------
 # Crear una instancia de la clase Catalogo
-Usuarios = Usuarios(host='localhost', user='root', password='1234', database='miapp')
+usuarios = Usuarios(host='localhost', user='root', password='1234', database='myapp')
 #catalogo = Catalogo(host='USUARIO.mysql.pythonanywhere-services.com', user='USUARIO', password='CLAVE', database='USUARIO$miapp')
 
 
@@ -138,7 +138,7 @@ Usuarios = Usuarios(host='localhost', user='root', password='1234', database='mi
 #El método devuelve una lista con todos los productos en formato JSON.
 @app.route("/hincha", methods=["GET"])
 def listar_hincha():
-    hincha = Usuarios.listar_hincha()
+    hincha = usuarios.listar_hincha()
     return jsonify(hincha)
 
 
@@ -149,7 +149,7 @@ def listar_hincha():
 #El método busca en la base de datos el producto con el código especificado y devuelve un JSON con los detalles del producto si lo encuentra, o None si no lo encuentra.
 @app.route("/hincha/<int:dni>", methods=["GET"])
 def mostrar_hincha(dni):
-    hincha = Usuarios.consultar_hincha(dni)
+    hincha = usuarios.consultar_hincha(dni)
     if hincha:
         return jsonify(hincha), 201
     else:
@@ -179,7 +179,7 @@ def agregar_hincha():
     # nombre_base, extension = os.path.splitext(nombre_imagen) #Separa el nombre del archivo de su extensión.
     # nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}" #Genera un nuevo nombre para la imagen usando un timestamp, para evitar sobreescrituras y conflictos de nombres.
 
-    nuevo_dni = Usuarios.agregar_hincha(dni, nombre, apellido, email, genero, hinchade, mensaje)
+    nuevo_dni = usuarios.agregar_hincha(dni, nombre, apellido, email, genero, hinchade, mensaje)
     if nuevo_dni:    
         # imagen.save(os.path.join(RUTA_DESTINO, nombre_imagen))
 
@@ -236,7 +236,7 @@ def modificar_hincha(dni):
 
 
     # Se llama al método modificar_producto pasando el codigo del producto y los nuevos datos.
-    if Usuarios.modificar_hincha(dni, nuevo_nombre, nuevo_apellido, nuevo_email, nuevo_genero, nuevo_hinchade, nuevo_mensaje):
+    if usuarios.modificar_hincha(dni, nuevo_nombre, nuevo_apellido, nuevo_email, nuevo_genero, nuevo_hinchade, nuevo_mensaje):
         
         #Si la actualización es exitosa, se devuelve una respuesta JSON con un mensaje de éxito y un código de estado HTTP 200 (OK).
         return jsonify({"mensaje": "Hincha modificado"}), 200
@@ -254,8 +254,8 @@ def modificar_hincha(dni):
 #La función eliminar_producto se asocia con esta URL y es llamada cuando se realiza una solicitud DELETE a /productos/ seguido de un número (el código del producto).
 def eliminar_hincha(dni):
     # Busco el producto en la base de datos
-    hincha = Usuarios.consultar_hincha(DNI)
-    # if hincha: # Si el producto existe, verifica si hay una imagen asociada en el servidor.
+    hincha = usuarios.consultar_hincha(dni)
+    if hincha: # Si el producto existe, verifica si hay una imagen asociada en el servidor.
       #   imagen_vieja = producto["imagen_url"]
         # Armo la ruta a la imagen
         # ruta_imagen = os.path.join(RUTA_DESTINO, imagen_vieja)
@@ -265,7 +265,7 @@ def eliminar_hincha(dni):
          #    os.remove(ruta_imagen)
 
         # Luego, elimina el producto del catálogo
-        if Usuarios.eliminar_hincha(dni):
+        if usuarios.eliminar_hincha(dni):
             #Si el producto se elimina correctamente, se devuelve una respuesta JSON con un mensaje de éxito y un código de estado HTTP 200 (OK).
             return jsonify({"mensaje": "Hincha eliminado"}), 200
         else:
