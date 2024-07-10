@@ -15,22 +15,23 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <title>Formulario de Contacto</title>
+    <title>Formulario de Alta</title>
     <link rel="stylesheet" href="css/estilos.css" />
-    <meta name="description" content="Form de Contacto" />
+    <meta name="description" content="Form de Alta" />
   </head>
   <body>
     <header>
-      <h1 id="titulo">Formulario de Contacto</h1>
+      <h1 id="titulo">Formulario de Alta de Hincha</h1>
     </header>
 
     <main class="match-container soloeste">
       <div class="row justify-content-center w-100 mt-5">
         <div class="form-container">
           <form
-            id="contactform"
+            id="formulario"
             action="https://formspree.io/f/xdoqrzgq"
             method="post"
+            enctype="multipart/form-data"
           >
             <label for="dni">DNI:</label>
             <input
@@ -96,92 +97,48 @@
     </footer>
 
     <script>
+      const URL = "http://127.0.0.1:5000/";
       document
-        .getElementById("contactform")
+        .getElementById("formulario")
         .addEventListener("submit", function (event) {
           event.preventDefault();
+          var formData = new FormData(this);
 
-          let DNI = document.getElementById("dni").value;
-          let nombre = document.getElementById("nombre").value;
-          let apellido = document.getElementById("apellido").value;
-          let genero = document.getElementById("genero").value;
-          let hinchade = document.querySelector(
-            'input[name="hinchade"]:checked'
-          );
-          let email = document.getElementById("email").value;
-          let mensaje = document.getElementById("mensaje").value;
-
-          if (!dni) {
-            alert("Por favor, ingrese su DNI.");
-            return;
-          }
-
-          if (!nombre) {
-            alert("Por favor, ingrese su nombre.");
-            return;
-          }
-
-          if (!apellido) {
-            alert("Por favor, ingrese su apellido.");
-            return;
-          }
-
-          if (!genero) {
-            alert("Por favor, seleccione su género.");
-            return;
-          }
-
-          if (!hinchade) {
-            alert("Por favor, seleccione un equipo del cual es hincha.");
-            return;
-          }
-
-          if (!email) {
-            alert("Por favor, ingrese su correo electrónico.");
-            return;
-          }
-
-          if (!mensaje) {
-            alert("Por favor, ingrese su mensaje.");
-            return;
-          }
-
-          let usuario = {
-            dni: dni,
-            nombre: nombre,
-            apellido: apellido,
-            genero: genero,
-            hinchade: hinchade.value,
-            email: email,
-            mensaje: mensaje,
-          };
-
-          let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-          usuarios.push(usuario);
-          localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-          let formData = new FormData(event.target);
-          fetch(event.target.action, {
+          // Realizamos la solicitud POST al servidor
+          fetch(URL + "hincha", {
             method: "POST",
-            body: formData,
-            headers: {
-              Accept: "application/json",
-            },
+            body: formData, // Aquí enviamos formData. Dado que formData puede contener archivos, no se utiliza JSON.
           })
-            .then((response) => {
+            //Después de realizar la solicitud POST, se utiliza el método then() para manejar la respuesta del servidor.
+            .then(function (response) {
               if (response.ok) {
-                alert("Usuario registrado con éxito!");
-                document.getElementById("contactform").reset();
+                //Si la respuesta es exitosa, convierte los datos de la respuesta a formato JSON.
+                return response.json();
               } else {
-                alert(
-                  "Hubo un problema con el registro. Por favor, intenta de nuevo."
-                );
+                // Si hubo un error, lanzar explícitamente una excepción
+                // para ser "catcheada" más adelante
+                throw new Error("Error al agregar el hincha.");
               }
             })
-            .catch((error) => {
-              alert(
-                "Hubo un problema con el registro. Por favor, intenta de nuevo."
-              );
+            //Respuesta OK, muestra una alerta informando que el producto se agregó correctamente y limpia los campos del formulario para que puedan ser utilizados para un nuevo producto.
+            .then(function (data) {
+              alert("Hincha agregado correctamente.");
+            })
+
+            // En caso de error, mostramos una alerta con un mensaje de error.
+            .catch(function (error) {
+              alert("Error al agregar el hincha.");
+            })
+
+            // Limpiar el formulario en ambos casos (éxito o error)
+            .finally(function () {
+              document.getElementById("dni").value = "";
+              document.getElementById("nombre").value = "";
+              document.getElementById("apellido").value = "";
+              document.getElementById("email").value = "";
+              document.getElementById("genero").value = "";
+              document.getElementById("hinchade").value = "";
+              document.getElementById("mensaje").value = "";
             });
         });
     </script>
