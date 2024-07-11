@@ -238,7 +238,7 @@ def modificar_hincha(dni):
 
     # Se llama al método modificar_producto pasando el codigo del producto y los nuevos datos.
     hinchaModificado=usuarios.modificar_hincha(dni, nuevo_nombre, nuevo_apellido, nuevo_email, nuevo_genero, nuevo_hinchade, nuevo_mensaje)
-    print(hinchaModificado)
+    
     if hinchaModificado:
         
         #Si la actualización es exitosa, se devuelve una respuesta JSON con un mensaje de éxito y un código de estado HTTP 200 (OK).
