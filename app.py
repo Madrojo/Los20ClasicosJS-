@@ -188,7 +188,7 @@ def agregar_hincha():
         return jsonify({"mensaje": "Hincha agregado correctamente.", "codigo": nuevo_dni}), 201
     else:
         #Si el producto no se puede agregar, se devuelve una respuesta JSON con un mensaje de error y un código de estado HTTP 500 (Internal Server Error).
-        return jsonify({"mensaje": "Error al agregar el producto."}), 500
+        return jsonify({"mensaje": "Error al agregar el hincha."}), 500
     
 
 #--------------------------------------------------------------------
