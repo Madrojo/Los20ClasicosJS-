@@ -120,7 +120,7 @@ class Usuarios:
 # Cuerpo del programa
 #--------------------------------------------------------------------
 # Crear una instancia de la clase Catalogo
-usuarios = Usuarios(host='localhost', user='root', password='1234', database='myapp')
+usuarios = Usuarios(host='madrojo.mysql.pythonanywhere-services.com', user='madrojo', password='codoacodo', database='madrojo$myapp')
 #catalogo = Catalogo(host='USUARIO.mysql.pythonanywhere-services.com', user='USUARIO', password='CLAVE', database='USUARIO$miapp')
 
 
